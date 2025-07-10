@@ -7,7 +7,7 @@ class BaseClass(ABC):
     def __init__(self, *args, **kwargs):
         self._id = self.generate_id()
         self.store(self)
-        super().__init__(*args, **kwargs)
+        super().__init__()
     
     @classmethod
     def generate_id(cls): 
