@@ -1,7 +1,6 @@
-from base import BaseClass
 from abc import abstractmethod, ABC
 
-class EstateAbstract(BaseClass):
+class EstateAbstract(ABC):
     def __init__(self, user, area, rooms_count, built_year, region, address, *args, **kwargs):
         self.user = user
         self.area = area
@@ -23,8 +22,8 @@ class Apartment(EstateAbstract):
         super().__init__(*args, **kwargs)
 
     def show_description(self):
-        print(f"Apartment {self._id}\t area: {self.area}")
-
+        # print(f"Apartment {self._id}\t area: {self.area}")
+        return super().show_description()
 class House(EstateAbstract):
     def __init__(self, has_yard, floors_count, *args, **kwargs):
         self.has_yard = has_yard
@@ -32,12 +31,12 @@ class House(EstateAbstract):
         super().__init__(*args, **kwargs)
     
     def show_description(self):
-        # return super().show_description()
-        print(f"House: {self._id}")
+        return super().show_description()
+        # print(f"House: {self._id}")
 
 class Store(EstateAbstract):
     def show_description(self):
-        # return super().show_description()
-        print(f"Store: {self._id}")
+        return super().show_description()
+        # print(f"Store: {self._id}")
 
 

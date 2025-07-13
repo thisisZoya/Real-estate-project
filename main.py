@@ -18,6 +18,7 @@ if __name__ == '__main__':
         print(f"{user._id}\t {user.full_name}")
 
     reg1 = Region(name='Tashkent')
+    reg2 = Region(name='Tehran ')
     apt1 = Apartment(user=User.objects_list[0],
                      area=100,
                      floor=2,
@@ -27,7 +28,7 @@ if __name__ == '__main__':
                      address='Tashkent, Amir Temur street, 123',
                      has_elevator=True,
                      has_parking=True)
-    apt1.show_description()
+    # apt1.show_description()
 
     house1 = House(user=User.objects_list[1],
                    area=100,
@@ -37,7 +38,7 @@ if __name__ == '__main__':
                    region=reg1,
                    address='Tashkent, Amir Temur street, 123',
                    has_yard=True)
-    house1.show_description()
+    # house1.show_description()
     
     store1 = Store(user=User.objects_list[2],
                    area=100,
@@ -60,3 +61,52 @@ if __name__ == '__main__':
                      discountable=True,
                      convertable=True)
     apartment_sell.show_detail()
+
+    apartment_rent = ApartmentRent(user=User.objects_list[2],
+        area=100,
+        floor=2,
+        rooms_count=2,
+        built_year=2020,
+        region=reg1,
+        address='Tashkent, Amir Temur street, 123',
+        has_elevator=True,
+        has_parking=True,
+        initial_price=100000,
+        mounthly_price=3.5,
+
+    )
+
+    house_rent = HouseRent(user=User.objects_list[2],
+                   area=100,
+                   floors_count=2,
+                   rooms_count=2,
+                   built_year=2020,
+                   region=reg1,
+                   address='Tashkent, Amir Temur street, 123',
+                   initial_price=110000,
+                   mounthly_price=3.7,
+                   convertable=False,
+                   has_yard=True
+
+    )
+
+    house_sell = HouseSell(user=User.objects_list[2],
+                   area=100,
+                   floors_count=2,
+                   rooms_count=2,
+                   built_year=2020,
+                   region=reg1,
+                   address='Tashkent, Amir Temur street, 123',
+                   price_per_meter=10000,
+                   discountable=False,
+                   convertable=False,
+                   has_yard=True)
+    house_sell.show_detail() 
+
+    search_result = ApartmentSell.manager.search(region=reg1)
+    # print(apartment_sell.manager)
+    # print(house_sell.manager)
+    # print(apartment_rent.manager)
+    # print(house_rent.manager)
+    print(search_result)
+    print(HouseRent.manager.search(region=reg1))
