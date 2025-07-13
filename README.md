@@ -104,10 +104,4 @@ real estate CLI python, OOP real estate project, property listing search Python,
 
 ---
 
-## 👤 Author
 
-- Developed by: [Your Name]
-- GitHub: [your-username]
-- Contact: [your-email@example.com]
-
----
