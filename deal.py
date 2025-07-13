@@ -10,10 +10,13 @@ class Sell(ABC):
     def show_price(self):
         print(f"price: {self.price_per_meter}, discount: {self.discount}, convert: {self.convertable}")
 
-class Rent(ABC):
+class Rent(ABC):  
     def __init__(self, initial_price, mounthly_price, convertable=False, discountable=False, *args, **kwargs):
         self.initial_price = initial_price
         self.mounthly_price = mounthly_price
         self.convertable = convertable
         self.discountable = discountable
         super().__init__(*args, **kwargs)
+
+    def show_price(self):
+        print(f"initial price: {self.initial_price}, mounthly price: {self.mounthly_price}")

@@ -1,112 +1,46 @@
-from logging import root
-from user import User
-from random import choice
-from estate import Apartment, House, Store
-from region import Region
-from advertisement import ApartmentRent, ApartmentSell, HouseRent, HouseSell, StoreRent, StoreSell
 
+from sample import create_samples
+from manager import Manager
+from sample import ApartmentRent, ApartmentSell, HouseRent, HouseSell, StoreRent, StoreSell
+class handler:
+    ADVERTISEMENT_TYPE = {
+        1: ApartmentRent, 2: ApartmentSell,
+        3: HouseRent, 4: HouseSell,
+        # 4: StoreRent, 5: StoreSell
+    }
 
-FIRST_NAMES = ['John', 'Jane', 'Jim', 'Jill']
-LAST_NAMES = ['Doe', 'Smith', 'Williams', 'Brown']
-PHONE_NUMBERS = ['1234567890', '0987654321', '1234123456', '4567845678']
+    SWITCHES = {
+        'r': 'get_report',
+        's': 'show_all'
+    } 
+
+    def get_report(self):
+        for adv in self.ADVERTISEMENT_TYPE.values():
+            print(adv, adv.manager.count())
+
+    def show_all(self):
+        for adv in self.ADVERTISEMENT_TYPE.values():
+            print(adv, adv.manager.count())
+            for obj in adv.objects_list:
+                print(obj.show_detail())
+
+    def run(self):
+        print("hello world")
+        for key in self.SWITCHES:
+            print(f"press {key} for {self.SWITCHES[key]}")
+        user_input = input("Enter your choice: ")
+        switch = self.SWITCHES.get(user_input, None)
+
+        if switch is None:
+            print("Invalid input")
+            self.run()
+        choice = getattr(self, switch, None)
+        choice()
+        self.run()
+
 
 if __name__ == '__main__':
-    for mobile in PHONE_NUMBERS:
-        User(choice(FIRST_NAMES), choice(LAST_NAMES), mobile)
-
-    for user in User.objects_list:
-        print(f"{user._id}\t {user.full_name}")
-
-    reg1 = Region(name='Tashkent')
-    reg2 = Region(name='Tehran ')
-    apt1 = Apartment(user=User.objects_list[0],
-                     area=100,
-                     floor=2,
-                     rooms_count=2,
-                     built_year=2020,
-                     region=reg1,
-                     address='Tashkent, Amir Temur street, 123',
-                     has_elevator=True,
-                     has_parking=True)
-    # apt1.show_description()
-
-    house1 = House(user=User.objects_list[1],
-                   area=100,
-                   floors_count=2,
-                   rooms_count=2,
-                   built_year=2020,
-                   region=reg1,
-                   address='Tashkent, Amir Temur street, 123',
-                   has_yard=True)
-    # house1.show_description()
-    
-    store1 = Store(user=User.objects_list[2],
-                   area=100,
-                   rooms_count=2,
-                   built_year=2020,
-                   region=reg1,
-                   address='Tashkent, Amir Temur street, 123')
-    store1.show_description()
-
-    apartment_sell = ApartmentSell(user=User.objects_list[2],
-                     area=100,
-                     floor=2,
-                     rooms_count=2,
-                     built_year=2020,
-                     region=reg1,
-                     address='Tashkent, Amir Temur street, 123',
-                     has_elevator=True,
-                     has_parking=True,
-                     price_per_meter=10000,
-                     discountable=True,
-                     convertable=True)
-    apartment_sell.show_detail()
-
-    apartment_rent = ApartmentRent(user=User.objects_list[2],
-        area=100,
-        floor=2,
-        rooms_count=2,
-        built_year=2020,
-        region=reg1,
-        address='Tashkent, Amir Temur street, 123',
-        has_elevator=True,
-        has_parking=True,
-        initial_price=100000,
-        mounthly_price=3.5,
-
-    )
-
-    house_rent = HouseRent(user=User.objects_list[2],
-                   area=100,
-                   floors_count=2,
-                   rooms_count=2,
-                   built_year=2020,
-                   region=reg1,
-                   address='Tashkent, Amir Temur street, 123',
-                   initial_price=110000,
-                   mounthly_price=3.7,
-                   convertable=False,
-                   has_yard=True
-
-    )
-
-    house_sell = HouseSell(user=User.objects_list[2],
-                   area=100,
-                   floors_count=2,
-                   rooms_count=2,
-                   built_year=2020,
-                   region=reg1,
-                   address='Tashkent, Amir Temur street, 123',
-                   price_per_meter=10000,
-                   discountable=False,
-                   convertable=False,
-                   has_yard=True)
-    house_sell.show_detail() 
-
-    search_result = ApartmentSell.manager.search(region=reg1)
-    # print(apartment_sell.manager)
-    # print(house_sell.manager)
-    # print(apartment_rent.manager)
-    # print(house_rent.manager)
-    print(search_result)
-    print(HouseRent.manager.search(region=reg1))
+    create_samples()
+    handler = handler().run()
+   
+    # handler.run()
